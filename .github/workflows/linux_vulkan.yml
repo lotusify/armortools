@@ -1,12 +1,7 @@
 name: Linux (Vulkan)
 
 on:
-  push:
-    branches:
-    - main
-  pull_request:
-    branches:
-    - main
+  workflow_dispatch:
 
 jobs:
   build:
@@ -23,3 +18,15 @@ jobs:
       run: |
         cd paint
         ../base/make --compile
+    - name: Upload artifact (all)
+      uses: actions/upload-artifact@v4
+      with:
+        name: ArmorPaint-linux
+        path: paint/build/out/
+        if-no-files-found: error
+    - name: Upload artifact (executable only)
+      uses: actions/upload-artifact@v4
+      with:
+        name: ArmorPaint-linux-exe
+        path: paint/build/out/ArmorPaint
+        if-no-files-found: error

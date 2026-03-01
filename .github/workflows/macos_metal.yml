@@ -1,12 +1,7 @@
 name: macOS (Metal)
 
 on:
-  push:
-    branches:
-    - main
-  pull_request:
-    branches:
-    - main
+  workflow_dispatch:
 
 jobs:
   build:
@@ -19,3 +14,15 @@ jobs:
       run: |
         cd paint
         ../base/make --compile
+    - name: Upload artifact (all)
+      uses: actions/upload-artifact@v4
+      with:
+        name: ArmorPaint-macos
+        path: paint/build/Release/
+        if-no-files-found: error
+    - name: Upload artifact (app bundle only)
+      uses: actions/upload-artifact@v4
+      with:
+        name: ArmorPaint-macos-app
+        path: paint/build/Release/ArmorPaint.app
+        if-no-files-found: error
