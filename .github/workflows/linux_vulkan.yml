@@ -23,3 +23,9 @@ jobs:
       run: |
         cd paint
         ../base/make --compile
+    - name: Upload artifact
+      uses: actions/upload-artifact@v4
+      with:
+        name: ArmorPaint-linux
+        path: paint/build/out/
+        if-no-files-found: error
